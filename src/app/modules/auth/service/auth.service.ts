@@ -14,12 +14,11 @@ export class AuthService implements AuthServiceInterface {
   }
 
   async createSession(body: AuthUserReqDto): Promise<CreateSessionDto> {
-    const { token } = await this.authRepository.createSession(body);
+    const { uid } = await this.authRepository.createSession(body);
     const keyTheMovie = AppConfig.get('theMovieApi.apiKey');
-    console.log(keyTheMovie, 'key aqui');
     return {
       keyTheMovie: keyTheMovie,
-      sessionFirebase: token,
+      uid: uid,
     };
   }
 }

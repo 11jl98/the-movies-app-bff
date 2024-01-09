@@ -16,9 +16,8 @@ export class AuthRepository implements AuthRepositoryInterface {
   }
   async createSession(
     authUserReqDto: AuthUserReqDto,
-  ): Promise<{ token: string }> {
+  ): Promise<{ uid: string }> {
     const user = await admin.auth().getUserByEmail(authUserReqDto.email);
-    const token = await admin.auth().createCustomToken(user.uid);
-    return { token };
+    return { uid: user.uid };
   }
 }

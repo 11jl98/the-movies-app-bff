@@ -17,6 +17,7 @@ export class AuthController implements AuthControllerInterface {
     try {
       await this.authService.authUserByEmailPassword(authUserReqDto);
     } catch (error) {
+      console.log(error);
       ErrorResFactory.throwExceptionFromError(error);
     }
   }
@@ -28,9 +29,9 @@ export class AuthController implements AuthControllerInterface {
     try {
       const sessionId = randomUUID();
 
-      const { keyTheMovie, sessionFirebase } =
+      const { keyTheMovie, uid } =
         await this.authService.createSession(authUserReqDto);
-      return { sessionId, keyTheMovie, sessionFirebase };
+      return { sessionId, keyTheMovie, uid };
     } catch (error) {
       ErrorResFactory.throwExceptionFromError(error);
     }

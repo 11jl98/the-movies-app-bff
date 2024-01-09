@@ -10,5 +10,5 @@ export class CreateSessionDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  sessionFirebase: string;
+  uid: string;
 }
