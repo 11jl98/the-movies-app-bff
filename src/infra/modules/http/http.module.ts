@@ -1,20 +1,17 @@
 import { Module, Global } from '@nestjs/common';
-import Axios, { AxiosInstance } from 'axios';
-import { HttpService } from './services/http.service';
+import axios from 'axios';
 
-@Global()
 @Module({
   providers: [
     {
-      provide: HttpService,
-      useFactory: (): HttpService => {
-        const axiosInstance: AxiosInstance = Axios.create({
-          baseURL: 'https://api.themoviedb.org/3',
+      provide: 'AXIOS_INSTANCE',
+      useFactory: () => {
+        const axiosInstance = axios.create({
+          baseURL: process.env.BASE_URL_API,
         });
-        return new HttpService(axiosInstance);
+        return axiosInstance;
       },
     },
   ],
-  exports: [HttpService],
 })
-export class HttpModule {}
+export class AxiosModule {}

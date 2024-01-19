@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { AxiosHeaders, AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 
 @Injectable()
-export class HttpService {
-  constructor(private readonly axiosInstance: AxiosInstance) {}
+export class HttpServices {
+  constructor(
+    @Inject('AXIOS_INSTANCE') private readonly axiosInstance: AxiosInstance,
+  ) {}
 
-  async get<T = any>(
+  async getInfo<T = any>(
     endpoint: string,
     headers?: RawAxiosRequestHeaders | AxiosHeaders,
   ): Promise<T> {

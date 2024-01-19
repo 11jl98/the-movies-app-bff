@@ -1,7 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { AuthControllerInterface } from './auth.controller.interface';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../services/auth.service';
 import { AuthUserReqDto } from '../dtos/request/auth-user.req.dto';
 import { ErrorResFactory } from 'src/app/dtos/errors/responses/error-res.factory';
 import { CacheManagerInterceptor } from '../interceptors/cache-manager.interceptor';
