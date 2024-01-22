@@ -1,5 +1,6 @@
-import { Module, Global } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import axios from 'axios';
+import { HttpServices } from './services/http.service';
 
 @Module({
   providers: [
@@ -12,6 +13,8 @@ import axios from 'axios';
         return axiosInstance;
       },
     },
+    HttpServices,
   ],
+  exports: [HttpServices],
 })
 export class AxiosModule {}

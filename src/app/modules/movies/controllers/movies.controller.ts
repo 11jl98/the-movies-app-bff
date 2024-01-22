@@ -14,7 +14,7 @@ export class MoviesController implements MoviesControllerInterface {
   @Get()
   async geMoviesHome(
     @Request() req: RequestDto,
-  ): Promise<GetMoviesListResBuilderDto[]> {
+  ): Promise<GetMoviesListResBuilderDto> {
     try {
       const { user } = req;
       return await this.moviesService.getMoviesHome(user);

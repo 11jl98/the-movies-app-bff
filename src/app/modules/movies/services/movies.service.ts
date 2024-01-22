@@ -10,7 +10,7 @@ import { Injectable } from '@nestjs/common';
 export class MoviesService implements MoviesServiceInterface {
   constructor(private readonly httpService: HttpServices) {}
 
-  async getMoviesHome(user: UserDto): Promise<GetMoviesListResBuilderDto[]> {
+  async getMoviesHome(user: UserDto): Promise<GetMoviesListResBuilderDto> {
     const getMoviesListResBuilder: GetMoviesListResBuilder =
       new GetMoviesListResBuilder();
 

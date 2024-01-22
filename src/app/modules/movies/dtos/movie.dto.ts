@@ -18,7 +18,7 @@ export class MovieDTO {
 
   @ApiProperty()
   @IsArray()
-  genre_ids: number[];
+  genre_ids: string[] | number[];
 
   @ApiProperty()
   @IsNumber()
