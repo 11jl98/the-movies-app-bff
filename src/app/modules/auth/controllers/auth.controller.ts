@@ -31,6 +31,7 @@ export class AuthController implements AuthControllerInterface {
 
       const { keyTheMovie, uid } =
         await this.authService.createSession(authUserReqDto);
+      console.log('aqui ó');
       return { sessionId, keyTheMovie, uid };
     } catch (error) {
       ErrorResFactory.throwExceptionFromError(error);

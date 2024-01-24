@@ -6,7 +6,7 @@ import { FirebaseAdminModule } from 'src/infra/modules/firebase/firebase-admin.m
 import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthMiddleware } from './middlewares/auth-middleware';
-
+import * as cookieParser from 'cookie-parser';
 @Module({
   providers: [AuthService, AuthRepository, AuthMiddleware],
   controllers: [AuthController],
@@ -26,6 +26,8 @@ import { AuthMiddleware } from './middlewares/auth-middleware';
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
+      .apply(cookieParser())
+      .forRoutes('*')
       .apply(AuthMiddleware)
       .exclude('/auth/create-session', '/auth/register')
       .forRoutes('*');

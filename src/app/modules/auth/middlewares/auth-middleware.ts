@@ -22,8 +22,8 @@ export class AuthMiddleware implements NestMiddleware {
       iat: number;
       exp: number;
     }
-
-    const sessionId = req.headers['cookies'];
+    console.log(req.cookies);
+    const sessionId = req.cookies['sessionId'];
     const cacheData = await this.cacheManager.get(sessionId);
 
     if (!cacheData)
