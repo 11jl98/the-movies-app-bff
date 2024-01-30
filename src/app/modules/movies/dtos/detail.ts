@@ -7,131 +7,122 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-
-class GenreDto {
-  @IsNumber()
-  id: number;
-
-  @IsString()
-  name: string;
-}
-
-class ProductionCompanyDto {
-  @IsNumber()
-  id: number;
-
-  @IsString()
-  @IsOptional()
-  logo_path: string;
-
-  @IsString()
-  name: string;
-
-  @IsString()
-  origin_country: string;
-}
-
-class ProductionCountryDto {
-  @IsString()
-  iso_3166_1: string;
-
-  @IsString()
-  name: string;
-}
-
-class SpokenLanguageDto {
-  @IsString()
-  english_name: string;
-
-  @IsString()
-  iso_639_1: string;
-
-  @IsString()
-  name: string;
-}
+import { GenreDto } from './genre.dto';
+import { ProductionCompanyDto } from './production-company.dto';
+import { ProductionCountryDto } from './production-country.dto';
+import { SpokenLanguageDto } from './spoken-language.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class MovieDetailDto {
+  @ApiProperty()
   @IsBoolean()
   adult: boolean;
 
+  @ApiProperty()
   @IsString()
   @IsOptional()
   backdrop_path: string;
 
-  belongs_to_collection: any; // You might want to create a DTO for collection if needed
+  @ApiProperty()
+  belongs_to_collection: any;
 
+  @ApiProperty()
   @IsNumber()
   budget: number;
 
+  @ApiProperty()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => GenreDto)
   genres: GenreDto[];
 
+  @ApiProperty()
   @IsString()
   homepage: string;
 
+  @ApiProperty()
   @IsNumber()
   id: number;
 
+  @ApiProperty()
   @IsString()
   imdb_id: string;
 
+  @ApiProperty()
   @IsString()
   original_language: string;
 
+  @ApiProperty()
   @IsString()
   original_title: string;
 
+  @ApiProperty()
   @IsString()
   overview: string;
 
+  @ApiProperty()
   @IsNumber()
   popularity: number;
 
+  @ApiProperty()
   @IsString()
   @IsOptional()
   poster_path: string;
 
+  @ApiProperty({
+    isArray: true,
+    type: ProductionCompanyDto,
+  })
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ProductionCompanyDto)
   production_companies: ProductionCompanyDto[];
 
+  @ApiProperty({
+    isArray: true,
+    type: ProductionCountryDto,
+  })
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ProductionCountryDto)
   production_countries: ProductionCountryDto[];
 
+  @ApiProperty()
   @IsString()
   release_date: string;
 
+  @ApiProperty()
   @IsNumber()
   revenue: number;
 
+  @ApiProperty()
   @IsNumber()
   runtime: number;
 
+  @ApiProperty({
+    isArray: true,
+    type: SpokenLanguageDto,
+  })
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => SpokenLanguageDto)
   spoken_languages: SpokenLanguageDto[];
 
+  @ApiProperty()
   @IsString()
   status: string;
 
+  @ApiProperty()
   @IsString()
   tagline: string;
 
+  @ApiProperty()
   @IsString()
   title: string;
 
+  @ApiProperty()
   @IsBoolean()
   video: boolean;
 
+  @ApiProperty()
   @IsNumber()
   vote_average: number;
 
+  @ApiProperty()
   @IsNumber()
   vote_count: number;
 }

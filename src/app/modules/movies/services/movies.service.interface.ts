@@ -3,4 +3,5 @@ import { GetMoviesListResBuilderDto } from '../dtos/response/get-movies-list.res
 
 export interface MoviesServiceInterface {
   getMoviesHome(user: UserDto): Promise<GetMoviesListResBuilderDto>;
+  getDetailMovie(user: UserDto, movieId: string): Promise<void>;
 }

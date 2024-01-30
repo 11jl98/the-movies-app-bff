@@ -10,7 +10,7 @@ import { randomUUID } from 'crypto';
 @Controller('auth')
 export class AuthController implements AuthControllerInterface {
   constructor(private readonly authService: AuthService) {}
-  @Post('/register')
+  @Post('register')
   async authUserByEmailPassword(
     @Body() authUserReqDto: AuthUserReqDto,
   ): Promise<void> {

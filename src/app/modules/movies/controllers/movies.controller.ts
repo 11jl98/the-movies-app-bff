@@ -1,4 +1,4 @@
-import { Controller, Get, Request } from '@nestjs/common';
+import { Controller, Get, Param, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MoviesControllerInterface } from './movies.controller.interface';
 import { MoviesService } from '../services/movies.service';
@@ -12,12 +12,25 @@ export class MoviesController implements MoviesControllerInterface {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  async geMoviesHome(
+  async getMoviesHome(
     @Request() req: RequestDto,
   ): Promise<GetMoviesListResBuilderDto> {
     try {
       const { user } = req;
       return await this.moviesService.getMoviesHome(user);
+    } catch (error) {
+      ErrorResFactory.throwExceptionFromError(error);
+    }
+  }
+
+  @Get('/movieId')
+  async getDetailMovie(
+    @Request() req: RequestDto,
+    @Param('movieId') movieId: string,
+  ): Promise<void> {
+    try {
+      const { user } = req;
+      return await this.moviesService.getDetailMovie(user, movieId);
     } catch (error) {
       ErrorResFactory.throwExceptionFromError(error);
     }

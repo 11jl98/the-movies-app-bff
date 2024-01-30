@@ -5,6 +5,11 @@ import { GetMoviesListResBuilder } from '../dtos/response/get-movies-list.res.bu
 import { GetMoviesListResBuilderDto } from '../dtos/response/get-movies-list.res.builder.dto';
 import { UserDto } from '../../auth/dtos/user.dto';
 import { Injectable } from '@nestjs/common';
+import {
+  MovieDetailResponse,
+  MovieReviewsResponse,
+  ResponseVideo,
+} from '../types/movie-detail';
 
 @Injectable()
 export class MoviesService implements MoviesServiceInterface {
@@ -56,5 +61,32 @@ export class MoviesService implements MoviesServiceInterface {
     ]);
 
     return getMoviesListResBuilder.buildMovies(responseList);
+  }
+
+  async getDetailMovie(user: UserDto, movieId: string): Promise<any> {
+    const { lastToken } = user;
+
+    const responseList = await Promise.all([
+      this.httpService.getInfo<MovieDetailResponse>(
+        `/movie/${movieId}?language=pt-BR`,
+        { Authorization: `Bearer ${lastToken}` },
+      ),
+      this.httpService.getInfo<ResponseVideo>(
+        `/movie/${movieId}/videos?language=pt-BR`,
+        {
+          Authorization: `Bearer ${lastToken}`,
+        },
+      ),
+      this.httpService.getInfo<MovieResponse>(
+        `/movie/${movieId}/similar?language=pt-BR`,
+        { Authorization: `Bearer ${lastToken}` },
+      ),
+      this.httpService.getInfo<MovieReviewsResponse>(
+        `/movie/${movieId}/reviews?language=pt-BR`,
+        { Authorization: `Bearer ${lastToken}` },
+      ),
+    ]);
+
+    return responseList;
   }
 }
