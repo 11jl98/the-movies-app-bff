@@ -10,6 +10,7 @@ import {
   MovieReviewsResponse,
   ResponseVideo,
 } from '../types/movie-detail';
+import { GetDetailMovieResBuilder } from '../dtos/response/get-detail-movie.res.builder';
 
 @Injectable()
 export class MoviesService implements MoviesServiceInterface {
@@ -60,13 +61,15 @@ export class MoviesService implements MoviesServiceInterface {
       ),
     ]);
 
-    return getMoviesListResBuilder.buildMovies(responseList);
+    return getMoviesListResBuilder.buildResponse(responseList);
   }
 
   async getDetailMovie(user: UserDto, movieId: string): Promise<any> {
+    const getDetailMovieResBuilder: GetDetailMovieResBuilder =
+      new GetDetailMovieResBuilder();
     const { lastToken } = user;
 
-    const responseList = await Promise.all([
+    const [detail, video, reviews, similar] = await Promise.all([
       this.httpService.getInfo<MovieDetailResponse>(
         `/movie/${movieId}?language=pt-BR`,
         { Authorization: `Bearer ${lastToken}` },
@@ -77,16 +80,21 @@ export class MoviesService implements MoviesServiceInterface {
           Authorization: `Bearer ${lastToken}`,
         },
       ),
-      this.httpService.getInfo<MovieResponse>(
-        `/movie/${movieId}/similar?language=pt-BR`,
-        { Authorization: `Bearer ${lastToken}` },
-      ),
       this.httpService.getInfo<MovieReviewsResponse>(
         `/movie/${movieId}/reviews?language=pt-BR`,
         { Authorization: `Bearer ${lastToken}` },
       ),
+      this.httpService.getInfo<MovieResponse>(
+        `/movie/${movieId}/similar?language=pt-BR`,
+        { Authorization: `Bearer ${lastToken}` },
+      ),
     ]);
 
-    return responseList;
+    return getDetailMovieResBuilder.buildResponse(
+      detail,
+      video,
+      reviews,
+      similar,
+    );
   }
 }

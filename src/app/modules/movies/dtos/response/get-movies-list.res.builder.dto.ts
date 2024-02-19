@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieDTO } from '../movie.dto';
+import { MovieDto } from '../movie.dto';
 import { IsObject } from 'class-validator';
 import { MoviesListDto } from '../list-movies.dto';
 
@@ -15,5 +15,5 @@ export class GetMoviesListResBuilderDto {
     type: MoviesListDto,
   })
   @IsObject()
-  recommended: MovieDTO;
+  recommended: MovieDto;
 }

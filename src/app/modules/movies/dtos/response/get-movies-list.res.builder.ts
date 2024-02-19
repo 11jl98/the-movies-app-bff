@@ -3,10 +3,10 @@ import { GetMoviesListResBuilderDto } from './get-movies-list.res.builder.dto';
 import { MovieResponse } from '../../types/movies.types';
 import { MoviesListDto } from '../list-movies.dto';
 import { genresList } from 'src/app/commons/genres.commons';
-import { MovieDTO } from '../movie.dto';
+import { MovieDto } from '../movie.dto';
 
 export class GetMoviesListResBuilder {
-  buildMovies(responseList: MovieResponse[]): GetMoviesListResBuilderDto {
+  buildResponse(responseList: MovieResponse[]): GetMoviesListResBuilderDto {
     const builderList = responseList.map(
       (item: MovieResponse, index: number) => {
         return {
@@ -22,7 +22,7 @@ export class GetMoviesListResBuilder {
     };
   }
 
-  selectedRecommendedItem(list: MoviesListDto[]): MovieDTO {
+  selectedRecommendedItem(list: MoviesListDto[]): MovieDto {
     const originalsList = list.find((item: any) => item.slug === 'originals');
     if (!originalsList) {
       return;
@@ -36,7 +36,7 @@ export class GetMoviesListResBuilder {
     };
   }
 
-  getGenres(movie: MovieDTO) {
+  getGenres(movie: MovieDto) {
     const genresMovie = [];
     for (const genreId of movie?.genre_ids) {
       const findGenre = genresList.find((item) => item.id === Number(genreId));

@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieDTO } from './movie.dto';
+import { MovieDto } from './movie.dto';
 import { IsString } from 'class-validator';
 
 export class MoviesListDto {
   @ApiProperty({
     isArray: true,
-    type: MovieDTO,
+    type: MovieDto,
   })
-  movies: MovieDTO[];
+  movies: MovieDto[];
 
   @ApiProperty()
   @IsString()

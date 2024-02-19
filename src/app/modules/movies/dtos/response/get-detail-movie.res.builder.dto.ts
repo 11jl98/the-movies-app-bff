@@ -1,9 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MovieDTO } from '../movie.dto';
+import { MovieDto } from '../movie.dto';
 import { IsObject, IsString } from 'class-validator';
 import { MovieDetailDto } from '../detail';
+import { VideoDto } from '../video.dto';
+import { ReviewDto } from '../review.dto';
 
-export class GetMoviesListResBuilderDto {
+export class GetDetailMovieResBuilderDto {
   @ApiProperty({
     isArray: true,
     type: MovieDetailDto,
@@ -13,13 +15,16 @@ export class GetMoviesListResBuilderDto {
 
   @ApiProperty()
   @IsString()
-  video: MovieDTO;
+  video: VideoDto[];
 
   @ApiProperty()
   @IsString()
-  reviews: MovieDTO;
+  reviews: ReviewDto[];
 
-  @ApiProperty()
+  @ApiProperty({
+    isArray: true,
+    type: MovieDto,
+  })
   @IsString()
-  similar: MovieDTO;
+  similar: MovieDto[];
 }

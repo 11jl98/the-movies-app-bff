@@ -7,7 +7,7 @@ import {
   IsArray,
 } from 'class-validator';
 
-export class MovieDTO {
+export class MovieDto {
   @ApiProperty()
   @IsBoolean()
   adult: boolean;
